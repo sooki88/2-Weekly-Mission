@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Pretendard", sans-serif;
+}
+
+html, body {
+  font-size: 62.5%;
+}
+
+a { 
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  border: none;
+  padding: unset;
+  background-color: unset;
+  cursor: pointer;
+}
