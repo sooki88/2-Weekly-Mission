@@ -1,7 +1,7 @@
-import { resetErr, printErr } from "./sign_email.js";
+import { resetErr, printErr } from "./signIn_email.js";
 
 const userPw = document.querySelector('#user-password');
-const userPw2 = document.querySelector('#user-password-confrim');
+const eyeImg = document.querySelector('.eye-image');
 
 /* 비밀번호 입력여부 체크 함수 */
 function pwEmptyChk () {
@@ -23,17 +23,36 @@ function pwChk () {
   }
 }
 
-/* 비밀번호 확인 일치하는지 체크 함수 */
-function pw2Chk () {
-  if( userPw2.value && userPw2.value !== userPw.value ) {
-    resetErr( userPw2 );
-    printErr( userPw2, '비밀번호가 일치하지 않아요.');
-  } else if ( userPw2.value && userPw2.value == userPw.value ) {
-    resetErr( userPw2 );
+/* 눈이미지와 비번 감추기 */
+function pwShowHide(){
+  
+  if( userPw.type === "password"){  
+    eyeImg.src = "./img/eye-on.svg"
+    userPw.type = "text";
+  } else if (userPw.type === "text"){
+    eyeImg.src = "./img/eye-off.svg"
+    userPw.type = "password";
   }
 }
+
 
 /* 이벤트 등록하기 */
 userPw.addEventListener ('focusout', pwEmptyChk );
 userPw.addEventListener ('focusout', pwChk );
-userPw2.addEventListener ('focusout', pw2Chk);
+eyeImg.addEventListener ('click', (e)=>{ e.preventDefault(); } );
+eyeImg.addEventListener ('click', pwShowHide );
+
+
+export { userPw, eyeImg, pwShowHide, pwEmptyChk, pwChk };
+
+
+
+
+
+
+
+
+
+
+
+
