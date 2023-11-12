@@ -1,4 +1,5 @@
 const userEmail = document.querySelector('#user-email');
+const userInfo = { email: "test@codeit.com", pw: "codeit101", }
 
 /* 빨간 테두리와 에러 문구 리셋 함수 */
 function resetErr (el){
@@ -39,9 +40,20 @@ function emailChk () {
   }
 }
 
+/* 사용중인 이메일 체크 함수 */
+function emailDbChk () {
+  const { email } = userInfo;
+  
+  if( userEmail.value === email ) {
+    resetErr( userEmail );
+    printErr( userEmail, '이미 사용 중인 이메일입니다.');
+  } 
+}
+
 /* 이벤트 등록하기 */
 userEmail.addEventListener ('focusout', emailEmptyChk );
 userEmail.addEventListener ('focusout', emailChk );
+userEmail.addEventListener ('focusout', emailDbChk );
 
 
-export { resetErr, printErr };
+export { resetErr, printErr, userInfo };
