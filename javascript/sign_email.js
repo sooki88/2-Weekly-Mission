@@ -10,6 +10,7 @@ function resetErr (el){
 }
 
 /* 빨간 테두리와 에러 문구 추가 함수 */
+/* 근데 이게 적용되면 입력칸 색이 바뀝니다ㅜ */
 function printErr( el, text ) {
   el.classList.add('red-border');
   const span = document.createElement('span');
@@ -38,5 +39,9 @@ function emailChk () {
   }
 }
 
+/* 이벤트 등록하기 */
 userEmail.addEventListener ('focusout', emailEmptyChk );
 userEmail.addEventListener ('focusout', emailChk );
+
+
+export { resetErr, printErr };
