@@ -5,11 +5,11 @@ export const PW_REGEX = /^[A-Za-z0-9`~!@#\$%\^&\*\(\)\{\}\[\]\-_=\+\\|;:'"<>,\./
 export const testUser = { email: "test@codeit.com", pw: "codeit101", }
 
 /* 빨간 테두리와 에러 문구 리셋 함수 */
-export function resetErr (el){
-  const errText = el.parentNode.querySelector('.fail-message');
-  if(errText){ 
+export function resetErr ( el ){
+  const errText = el.parentNode.querySelector( '.fail-message' );
+  if( errText ){
     errText.remove();
-    el.classList.remove('red-border');
+    el.classList.remove( 'red-border' );
   }
 }
 

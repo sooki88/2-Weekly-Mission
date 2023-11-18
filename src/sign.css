@@ -116,7 +116,8 @@ header {
   display: none;
 }
 
-.eye-button {
+.eye-button,
+.eye-button2 {
   position: absolute;
   top: 5.1rem;
   right: 1.5rem;
