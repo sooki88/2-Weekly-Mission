@@ -3,8 +3,8 @@ import {
   PW_REGEX, 
   resetErr, 
   printErr, 
-  testUser, 
-} from "./utils.js";
+  codeitApi,
+} from "../utils/utils.js";
 
 export const userEmail = document.querySelector('#user-email');
 export const userPw = document.querySelector('#user-password');
@@ -46,10 +46,10 @@ userPw.addEventListener('focusout', (e) => pwChk( e.target ) );
 /* 눈이미지와 비번 감추기 */
 export function pwShowHide(){
   if( userPw.type === "password"){  
-    eyeImg.src = "./img/eye-on.svg"
+    eyeImg.src = "../img/eye-on.svg"
     userPw.type = "text";
   } else if (userPw.type === "text"){
-    eyeImg.src = "./img/eye-off.svg"
+    eyeImg.src = "../img/eye-off.svg"
     userPw.type = "password";
   }
 }
@@ -59,7 +59,7 @@ eyeImg.addEventListener('click', (e)=>{
   pwShowHide();
 } );
 
-/* 로그인 체크1 (이메일, 비번의 값이 올바른지) */
+/* 로그인 시도 함수 */
 async function signInSubmit(e) {
   e.preventDefault();
 
@@ -71,32 +71,34 @@ async function signInSubmit(e) {
   };
   const p = new Promise(( resolve, reject ) => {
     if( emailResult && pwResult ){
-      resolve( accessApi( userInfo ) )
-    } else {
+      resolve( accessApi( userInfo, 'sign-in' ) ),
       reject( 
+        resetErr( userEmail ),
+        resetErr( userPw ),
         printErr( userEmail, '이메일을 확인해주세요.'),
-        printErr( userPw, '비밀번호를 확인해주세요.'))
+        printErr( userPw, '비밀번호를 확인해주세요.'),)
     }
   })
 }
 
-/* 로그인 체크2 (올바를 경우 api 요청) */
-export async function accessApi( userInfo ){
-  const request = await fetch('https://bootcamp-api.codeit.kr/api/sign-in',{
-      method: 'POST',
-      body: JSON.stringify( userInfo ),
+/* 로그인, 회원가입시 api 요청과 응답을 받기  */
+export async function accessApi( userInfo, path ){
+  try {
+    const response = await fetch(`${codeitApi}/${path}`,{
+      method: "POST",
       headers: { 
         "Content-Type": "application/json"
       },
+      body: JSON.stringify( userInfo ),
     });
-  const response = await request.json();
-  console.log( response );
-  localStorage.setItem( 'access-token', response.access_tocken );
-  location.href = "../folder.html";
+    if( response.ok ){
+      const result = await response.json();
+      localStorage.setItem( 'signInAccessToken', result.accessToken );
+      location.href = "../folder.html";
+    }
+  } catch (error){
+    throw new Error('실패했습니다.');
+  }
 }
 
 signInForm.addEventListener( 'submit', signInSubmit );
-
-/* 로그인이 성공하면 access-token을 받고 localStorage.setItem을 이용해 
-localstorage에 키 값을 access-token으로 저장한다. 
-저장 후 나중에 사종자 정보가 필요한 api에 보내 그 페이지에서 필요한 정보를 서버로부터 받는다. */

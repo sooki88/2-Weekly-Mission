@@ -1,8 +1,7 @@
-export const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-
+export const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 export const PW_REGEX = /^[A-Za-z0-9`~!@#\$%\^&\*\(\)\{\}\[\]\-_=\+\\|;:'"<>,\./\?]{8,20}$/;
-
 export const testUser = { email: "test@codeit.com", pw: "codeit101", }
+export const codeitApi = 'https://bootcamp-api.codeit.kr/api';
 
 /* 빨간 테두리와 에러 문구 리셋 함수 */
 export function resetErr ( el ){

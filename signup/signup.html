@@ -8,15 +8,15 @@
       content="width=device-width,minimum-scale=1,initial-scale=1,maximum-scale=1,user-scalable=no"
     >
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
-    <link rel="stylesheet" href="./src/sign.css">
+    <link rel="stylesheet" href="../css/sign.css">
   </head>
   <body>
     <header>
-      <a class="logo-link" href="./index.html">
-        <img src="img/logo.svg" class="header-logo" alt="홈으로 연결된 Linkbrary 로고" onerror="this.src='./img/default.png';">
+      <a class="logo-link" href="../index.html">
+        <img src="../img/logo.svg" class="header-logo" alt="홈으로 연결된 Linkbrary 로고" onerror="this.src='../img/default.png';">
       </a>
       <p class="header-message">
-        이미 회원이신가요?<a class="header-link" href="./signin.html">로그인 하기</a>
+        이미 회원이신가요?<a class="header-link" href="../signin/signin.html">로그인 하기</a>
       </p>
     </header>
 
@@ -26,14 +26,14 @@
 
           <div class="sign-input-box">
             <label class="sign-input-label" for="user-email">이메일</label>
-            <input class="sign-input" id="user-email" name="user-emial" type="email">
+            <input class="sign-input sign-up-input" id="user-email" name="user-emial" type="email">
           </div>
 
           <div class="sign-input-box sign-password">
             <label class="sign-input-label" for="user-password">비밀번호</label>
             <input class="sign-input" id="user-password" name="user-password" type="password">
             <button class="eye-button" type="button">
-              <img src="./img/eye-off.svg" class="eye-image" onerror="this.src='./img/default.png';">
+              <img src="../img/eye-off.svg" class="eye-image" onerror="this.src='../img/default.png';">
             </button>
           </div>
           
@@ -41,7 +41,7 @@
             <label class="sign-input-label" for="user-password">비밀번호 확인</label>
             <input class="sign-input" id="user-password-confrim" name="user-password" type="password">
             <button class="eye-button2" type="button">
-              <img src="./img/eye-off.svg" class="eye-image2" onerror="this.src='./img/default.png';">
+              <img src="../img/eye-off.svg" class="eye-image2" onerror="this.src='../img/default.png';">
             </button>
           </div>
         </div>
@@ -51,16 +51,16 @@
         <span class="sns-text">다른 방식으로 가입하기</span>
         <div class="sns-links">
           <a class="sns-link google-link" href="https://www.google.com/">
-            <img src="./img/Google.png" onerror="this.src='./img/default.png';">
+            <img src="../img/Google.png" onerror="this.src='../img/default.png';">
           </a>
           <a class="sns-link kakao-link" href="https://www.kakaocorp.com/page/">
-            <img src="./img/kakaotalk.png" onerror="this.src='./img/default.png';">
+            <img src="../img/kakaotalk.png" onerror="this.src='../img/default.png';">
           </a>
         </div>
       </div>
     </div>
 
-    <script type="module" src="./js/signUp.js"></script>
+    <script type="module" src="./signUp.js"></script>
 
   </body>
 </html>
