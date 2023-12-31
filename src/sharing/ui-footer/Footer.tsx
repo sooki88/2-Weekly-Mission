@@ -1,6 +1,6 @@
 import styles from "./Footer.module.scss";
 import classNames from "classnames/bind";
-import { ROUTE } from "../../sharing/util/constant";
+import { ROUTE } from "../util/constant";
 import { TEXT } from "./constant";
 
 const cx = classNames.bind(styles);

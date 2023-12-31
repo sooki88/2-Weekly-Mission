@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { axiosInstance } from "../../sharing/util/axiosInstance";
-import { mapLinksData } from "../../link/util-map/mapLinksData";
+import { mapLinksData } from "../util-map/mapLinksData";
 import { useAsync } from "../../sharing/util/useAsync";
 import { ALL_LINKS_ID } from "./constant";
 
@@ -17,6 +17,15 @@ export const useGetLinks = (folderId = ALL_LINKS_ID) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderId]);
 
+  interface MapDataFormatType {
+    id: string;
+    created_at: string;
+    url: string;
+    image_source: string;
+    title: string;
+    description: string;
+  }
+
   const mapDataFormat = ({
     id,
     created_at,
@@ -24,7 +33,7 @@ export const useGetLinks = (folderId = ALL_LINKS_ID) => {
     image_source,
     title,
     description,
-  }) => ({
+  }: MapDataFormatType) => ({
     id,
     createdAt: created_at,
     imageSource: image_source,

@@ -3,7 +3,12 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-export const IconAndTextButton = ({ iconSource, text }) => {
+interface Props {
+  iconSource: string;
+  text: string;
+}
+
+export const IconAndTextButton = ({ iconSource, text }: Props) => {
   return (
     <button className={cx("container")}>
       <img className={cx("icon")} src={iconSource} alt={`${text} 아이콘`} />
