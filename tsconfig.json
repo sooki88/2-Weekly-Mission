@@ -18,5 +18,5 @@
     "rootDir": "src" /* 타입스크립트 컴파일러가 처리할 타입스크립트 파일들의 최상위 폴더를 정하는 옵션 */,
     "outDir": "dist"
   },
-  "include": ["src"]
+  "include": ["src", "src/@types/custom.d.ts"]
 }

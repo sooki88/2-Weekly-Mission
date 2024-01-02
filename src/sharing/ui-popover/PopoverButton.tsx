@@ -6,9 +6,10 @@ const cx = classNames.bind(styles);
 
 interface Props {
   children: ReactNode;
+  onClick: (e: React.MouseEvent) => void;
 }
 
-export const PopoverButton = ({ children }: Props) => {
+export const PopoverButton = ({ children, onClick }: Props) => {
   const [isHover, setIsHover] = useState<boolean>(false);
   const handelMouseOver = (e: React.MouseEvent<HTMLSpanElement>) => {
     setIsHover(true);
@@ -22,6 +23,7 @@ export const PopoverButton = ({ children }: Props) => {
       onMouseOver={handelMouseOver}
       onMouseLeave={handelMouseLeave}
       className={cx("button", { hover: isHover })}
+      onClick={onClick}
     >
       {children}
     </div>

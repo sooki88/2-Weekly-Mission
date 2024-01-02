@@ -1,5 +1,9 @@
 @import "../../sharing/styles/global.scss";
 
+.container {
+  position: relative;
+}
+
 .star {
   position: absolute;
   top: 1.5rem;
@@ -23,4 +27,11 @@
   bottom: 4rem;
   left: 29.9rem;
   z-index: 1;
+  height: 6.4rem;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background-color: $color-white;
+  box-shadow: 0px 2px 8px 0px rgba(51, 50, 54, 0.1);
 }
