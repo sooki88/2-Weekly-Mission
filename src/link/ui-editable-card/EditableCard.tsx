@@ -1,6 +1,6 @@
 import styles from "./EditableCard.module.scss";
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { ImgHTMLAttributes, useState } from "react";
 import { Card } from "../../sharing/ui-card/Card";
 import { CardContent } from "../../sharing/ui-card-content/CardContent";
 import { CardImage } from "../../sharing/ui-card-image/CardImage";
@@ -10,7 +10,8 @@ const cx = classNames.bind(styles);
 
 type Props = {
   url: string;
-  imageSource: string;
+  imageSource: ImgHTMLAttributes<HTMLImageElement>;
+  // imageSource: string;
   alt: string;
   elapsedTime: string;
   description: string;

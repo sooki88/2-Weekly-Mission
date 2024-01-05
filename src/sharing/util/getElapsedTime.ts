@@ -1,10 +1,15 @@
 import { TIME_IN_MILLISECONDS } from "./constant";
+// import { isValid } from "date-fns";
 
 export const getElapsedTime = (createdAt: string): string => {
   const now = Number(new Date());
   const createdAtDate = Number(new Date(createdAt));
   const elapsedTime = now - createdAtDate;
   const { minute, hour, day, month, year } = TIME_IN_MILLISECONDS;
+
+  // if (!isValid(createdAt)) {
+  //   throw new Error("유효한 날짜 데이터가 아닙니다.");
+  // }
 
   if (year * 2 <= elapsedTime) {
     return `${Math.floor(elapsedTime / year)} years ago`;

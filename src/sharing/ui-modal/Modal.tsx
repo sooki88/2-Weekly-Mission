@@ -4,13 +4,15 @@ import IMG_close from "../../assets/close.svg";
 import IMG_check from "../../assets/check.svg";
 import { useState } from "react";
 
+// npm start하면 이미지가 엑박으로 나옵니다.
+
 const cx = classNames.bind(styles);
 
 // interface Folder {
 //   id: number;
 //   created_at: string;
 //   favorite: true;
-//   link: any;
+//   link: {count: number}
 //   name: string;
 //   user_id: number;
 // }

@@ -1,11 +1,13 @@
 import styles from "./CardImage.module.scss";
 import classNames from "classnames/bind";
 import { DEFAULT_IMAGE } from "./constant";
+import { ImgHTMLAttributes } from "react";
 
 const cx = classNames.bind(styles);
 
 interface Props {
-  imageSource: string;
+  imageSource: ImgHTMLAttributes<HTMLImageElement>;
+  // imageSource: string;
   alt?: string;
   isZoomedIn: boolean;
 }
@@ -15,7 +17,7 @@ export const CardImage = ({ imageSource, alt, isZoomedIn }: Props) => {
     <div
       style={{ backgroundImage: `url(${imageSource ?? DEFAULT_IMAGE})` }}
       className={cx("container", { zoomin: isZoomedIn })}
-      // alt={alt}
+      title={alt}
     />
   );
 };

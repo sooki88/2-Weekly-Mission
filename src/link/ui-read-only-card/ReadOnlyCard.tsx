@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { ImgHTMLAttributes, useState } from "react";
 import { Card } from "../../sharing/ui-card/Card";
 import { CardContent } from "../../sharing/ui-card-content/CardContent";
 import { CardImage } from "../../sharing/ui-card-image/CardImage";
 
+// type Props = {
+//   [key: string]: string;
+// };
+
 type Props = {
-  [key: string]: string;
+  url: string;
+  imageSource: ImgHTMLAttributes<HTMLImageElement>;
+  alt: string;
+  elapsedTime: string;
+  description: string;
+  createdAt: string;
 };
 
 export const ReadOnlyCard = ({
