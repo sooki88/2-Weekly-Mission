@@ -6,7 +6,7 @@ import Image from "next/image";
 const cx = classNames.bind(styles);
 
 // 코드잇 해설: export const Footer = forwardRef<HTMLElement>((_, ref) =>{}
-// _와 ref 둘다 모르겠습니다.
+// _와 ref 둘다 모르겠습니다. + 타입도 어떻게 설정해줘야할까요?
 
 export const Footer = (_: any, ref: any) => {
   return (
@@ -28,6 +28,7 @@ export const Footer = (_: any, ref: any) => {
             rel="noopener noreferrer"
           >
             <Image
+              fill
               src="images/facebook.svg"
               alt="facebook 홈페이지로 연결된 facebook 로고"
             />
@@ -38,6 +39,7 @@ export const Footer = (_: any, ref: any) => {
             rel="noopener noreferrer"
           >
             <Image
+              fill
               src="images/twitter.svg"
               alt="twitter 홈페이지로 연결된 twitter 로고"
             />
@@ -48,6 +50,7 @@ export const Footer = (_: any, ref: any) => {
             rel="noopener noreferrer"
           >
             <Image
+              fill
               src="images/youtube.svg"
               alt="youtube 홈페이지로 연결된 youtube 로고"
             />
@@ -58,6 +61,7 @@ export const Footer = (_: any, ref: any) => {
             rel="noopener noreferrer"
           >
             <Image
+              fill
               src="images/instagram.svg"
               alt="instagram 홈페이지로 연결된 instagram 로고"
             />
