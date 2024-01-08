@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 interface FolderLayoutProps {
-  linkForm?: ReactNode;
+  linkForm: ReactNode;
   searchBar: ReactNode;
   folderToolBar?: ReactNode;
   cardList?: ReactNode;

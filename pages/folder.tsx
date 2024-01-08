@@ -1,4 +1,6 @@
+import { CardList } from "@/components/feature-card-list/CardList";
 import Layout from "@/components/feature-layout/Layout";
+import { FolderToolBar } from "@/components/folder/feature-folder-tool-bar/FolderToolBar";
 import { SearchBar } from "@/components/folder/ui-search-bar/SearchBar";
 import { FolderLayout } from "@/components/page-layout/FolderLayout/FolderLayout";
 import { LinkForm } from "@/components/ui-link-form/LinkForm";
@@ -29,6 +31,9 @@ interface FolderProps {
 export default function Folder({ userData, foldersData }: FolderProps) {
   const [searchValue, setSearchValue] = useState("");
   const [folders, setFolders] = useState(foldersData);
+  const [selectedFolderId, setSelectedFolderId] = useState<number | "all">(
+    "all"
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -48,12 +53,22 @@ export default function Folder({ userData, foldersData }: FolderProps) {
             onCloseClick={handleCloseClick}
           />
         }
+        folderToolBar={
+          <FolderToolBar
+            folders={folders}
+            selectedFolderId={selectedFolderId}
+            onFolderClick={setSelectedFolderId}
+          />
+        }
+        cardList={<CardList />}
       />
     </Layout>
   );
 }
 
-// 한 페이지 안에서 여러 데이터를 가져와야할 경우 getServerSideProps안에 어떻게 나눠서 받아올 수 있을까요?
+// 한 페이지 안에서 여러 데이터를 가져와야할 경우
+// getServerSideProps안에 어떻게 나눠서 받아올 수 있을까요?
+
 export async function getServerSideProps() {
   let userData; // 유저 데이터
   let foldersData; // 폴더들 데이터
@@ -63,7 +78,7 @@ export async function getServerSideProps() {
     userData = userres.data;
 
     const foldersres = await instance.get("/users/1/folders");
-    foldersData = foldersres.data;
+    foldersData = foldersres.data.data;
   } catch (error) {
     throw new Error("user 또는 folder 데이터를 받아오는 데 실패했습니다.");
   }
