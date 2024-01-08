@@ -1,17 +1,41 @@
 import Layout from "@/components/feature-layout/Layout";
+import { SearchBar } from "@/components/folder/ui-search-bar/SearchBar";
+import { FolderLayout } from "@/components/page-layout/FolderLayout/FolderLayout";
 import { instance } from "@/components/util/instance";
+import { ChangeEvent, MouseEventHandler, useState } from "react";
 
-// interface UserDataProps {
-//   id: number;
-//   name: string;
-//   email: string;
-//   profileImageSource: string;
-// }
+interface UserDataProps {
+  id: number;
+  name: string;
+  email: string;
+  profileImageSource: string;
+}
 
-export default function Folder({ userdata }: any) {
+interface FolderProps {
+  userdata: UserDataProps;
+}
+
+export default function Folder({ userdata }: FolderProps) {
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+  const handleCloseClick = (e: MouseEventHandler<HTMLButtonElement>) => {
+    setSearchValue("");
+  };
+
   return (
     <Layout isSticky={false} userdata={userdata}>
-      안녕
+      <FolderLayout
+        searchBar={
+          <SearchBar
+            value={searchValue}
+            onChange={handleChange}
+            onCloseClick={handleCloseClick}
+          />
+        }
+      />
     </Layout>
   );
 }

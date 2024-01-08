@@ -31,7 +31,6 @@ LayoutProps) {
     : null;
 
   if (!userdata) return <div>데이터 없음</div>;
-  console.log(userdata);
 
   return (
     <div>
