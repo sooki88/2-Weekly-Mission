@@ -5,6 +5,7 @@ import classNames from "classnames/bind";
 import { AddFolderButton } from "../ui-add-folder-button/AddFolderButton";
 import { BUTTONS, MODALS_ID } from "./constant";
 import { IconAndTextButton } from "@/components/ui-icon-and-text-button/IconAndTextButton";
+import { useRouter } from "next/router";
 
 const cx = classNames.bind(styles);
 
@@ -20,20 +21,30 @@ interface FoldersData {
 interface FolderToolBarProps {
   folders: FoldersData[];
   selectedFolderId: number | "all";
-  onFolderClick: React.Dispatch<SetStateAction<number | "all">>;
+  setSelectedFolderId: React.Dispatch<SetStateAction<number | "all">>;
   // folder.tsx에서 넘겨준 setSelectedFolderId인데 set함수는 어떻게 해야할까요?
 }
 
 export const FolderToolBar = ({
   folders,
   selectedFolderId,
-  onFolderClick,
+  setSelectedFolderId,
 }: FolderToolBarProps) => {
+  const router = useRouter();
   const [currentModal, setCurrentModal] = useState<string | null>(null);
   const folderName =
     "all" === selectedFolderId
       ? "전체"
       : folders?.find(({ id }) => id === selectedFolderId)?.name ?? "";
+
+  const handleFolderClick = (folderId: number | "all") => {
+    if (folderId === "all") {
+      setSelectedFolderId("all");
+      router.push("/folder?q=all");
+    }
+    setSelectedFolderId(folderId);
+    router.push(`/folder?q=${folderId}`);
+  };
 
   return (
     <div className={cx("container")}>
@@ -41,14 +52,16 @@ export const FolderToolBar = ({
         <FolderButton
           key="all"
           text="전체"
-          onClick={() => onFolderClick("all")}
+          onClick={() => handleFolderClick("all")}
+          // onClick={() => onFolderClick("all")}
           isSelected={"all" === selectedFolderId}
         />
         {folders?.map(({ id, name }) => (
           <FolderButton
             key={id}
             text={name}
-            onClick={() => onFolderClick(id)}
+            onClick={() => handleFolderClick(id)}
+            // onClick={() => onFolderClick(id)}
             isSelected={id === selectedFolderId}
           />
         ))}
