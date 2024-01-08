@@ -26,9 +26,7 @@ export const SearchBar = ({
         onChange={onChange}
       />
       <div className={cx("search-icon")}>
-        {/* <div className={cx("image-relative")}> */}
         <Image fill src="/images/search.svg" alt="검색창의 돋보기 아이콘" />
-        {/* </div> */}
       </div>
       {value && (
         <button className={cx("close")} onClick={onCloseClick}>
