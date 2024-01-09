@@ -10,10 +10,10 @@ const cx = classNames.bind(styles);
 interface EditableCardProps {
   url: string;
   imageSource: string;
-  alt: string;
+  createdAt: string;
   elapsedTime: string;
   description: string;
-  createdAt: string;
+  alt: string;
 }
 
 export const EditableCard = ({

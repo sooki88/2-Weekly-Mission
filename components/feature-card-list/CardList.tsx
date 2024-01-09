@@ -6,13 +6,13 @@ const cx = classNames.bind(styles);
 
 interface LinksData {
   id: number;
-  created_at: string;
-  updated_at: any;
-  url: string;
   title: string;
+  url: string;
+  imageSource: string;
+  createdAt: string;
+  elapsedTime: string;
   description: string;
-  image_source: string;
-  folder_id: number;
+  alt: string;
 }
 
 interface CardListProps {
