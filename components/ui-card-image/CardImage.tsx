@@ -14,7 +14,12 @@ export const CardImage = ({ imageSource, alt }: CardImageProps) => {
   return (
     <div className={cx("container")}>
       <div className={cx("image")}>
-        <Image fill src={imageSource ?? "/images/card-default.png"} alt={alt} />
+        <Image
+          fill
+          objectFit="cover"
+          src={imageSource ?? "/images/card-default.png"}
+          alt={alt}
+        />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { ROUTE } from "../util/constant";
 import { Cta } from "../ui-cta/Cta";
 import { Profile } from "../ui-profile/Profile";
 import Image from "next/image";
+import Link from "next/link";
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +20,7 @@ export const NavigationBar = ({ profile, isSticky }: NavigationBarProps) => {
   return (
     <nav className={cx("container", { sticky: isSticky })}>
       <div className={cx("items")}>
-        <a href={ROUTE.랜딩}>
+        <Link href={ROUTE.landing}>
           <div className={cx("logo")}>
             <Image
               fill
@@ -27,11 +28,11 @@ export const NavigationBar = ({ profile, isSticky }: NavigationBarProps) => {
               alt="Linkbrary 서비스 로고"
             />
           </div>
-        </a>
+        </Link>
         {profile ? (
           <Profile profile={profile} />
         ) : (
-          <a href={ROUTE.로그인}>
+          <a href={ROUTE.signin}>
             <Cta>
               <span className={cx("signin")}>로그인</span>
             </Cta>

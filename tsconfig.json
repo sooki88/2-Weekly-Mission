@@ -21,7 +21,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/util/instance.js",
+    "components/util/instance.ts",
     "@types/custom.d.ts"
   ],
   "exclude": ["node_modules"]
