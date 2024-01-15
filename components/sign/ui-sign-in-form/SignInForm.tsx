@@ -5,18 +5,50 @@ import Link from "next/link";
 import { SignEmailInput } from "../ui-sign-input/SignEmailInput";
 import { useState } from "react";
 import { SignPasswordInput } from "../ui-sign-input/SignPasswordInput";
+import { instance } from "@/components/util/instance";
+import { useRouter } from "next/router";
 
 const cx = classNames.bind(styles);
 
 export const SignInForm = () => {
+  const router = useRouter();
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await instance("/sign-in", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        throw Error();
+      }
+
+      const { data } = await response.json();
+      const accessToken = data?.accessToken;
+      if (!accessToken) {
+        alert("토큰이 없습니다.");
+        return;
+      }
+      localStorage.setItem("accessToken", accessToken);
+      router.push("/folder");
+    } catch {
+      console.log("로그인 실패");
+    }
+  };
+
   return (
     <div className={cx("container")}>
-      <form className={cx("sign-form")}>
+      <form className={cx("sign-form")} onSubmit={handleSubmit}>
         <div className={cx("sign-inputs")}>
           <SignEmailInput values={values} setValues={setValues} />
           <SignPasswordInput values={values} setValues={setValues} />
