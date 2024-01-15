@@ -1,4 +1,4 @@
-import styles from "./SignInForm.module.scss";
+import styles from "./SignUpForm.module.scss";
 import classNames from "classnames/bind";
 import { SignEmailInput } from "../ui-sign-input/SignEmailInput";
 import { useRef, useState } from "react";
@@ -9,7 +9,7 @@ import { SnsSingin } from "../ui-sns-sign-in/SnsSingin";
 
 const cx = classNames.bind(styles);
 
-export const SignInForm = () => {
+export const SignUpForm = () => {
   const router = useRouter();
   const [values, setValues] = useState({
     email: "",

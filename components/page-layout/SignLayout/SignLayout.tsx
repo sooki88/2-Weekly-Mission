@@ -6,14 +6,14 @@ const cx = classNames.bind(styles);
 
 interface SignLayoutProps {
   header: ReactNode;
-  signInForm: ReactNode;
+  signForm: ReactNode;
 }
 
-export const SignLayout = ({ header, signInForm }: SignLayoutProps) => {
+export const SignLayout = ({ header, signForm }: SignLayoutProps) => {
   return (
     <div className={cx("container")}>
       {header}
-      {signInForm}
+      {signForm}
     </div>
   );
 };
