@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import { SignEmailInput } from "../ui-sign-input/SignEmailInput";
 import { useRef, useState } from "react";
 import { SignPasswordInput } from "../ui-sign-input/SignPasswordInput";
+import { SignPasswordConfirmInput } from "../ui-sign-input/SignPasswordConfirmInput";
 import { instance } from "@/components/util/instance";
 import { useRouter } from "next/router";
 import { SnsSingin } from "../ui-sns-sign-in/SnsSingin";
@@ -11,16 +12,22 @@ const cx = classNames.bind(styles);
 
 export const SignUpForm = () => {
   const router = useRouter();
+  const path = router.pathname;
   const [values, setValues] = useState({
     email: "",
     password: "",
+    passwordConfirm: "",
   });
   const emailErrorMessageRef = useRef(null);
   const passwordErrorMessageRef = useRef(null);
+  const passwordConfirmErrorMessageRef = useRef(null);
   const emailErrorInputRef = useRef(null);
   const passwordErrorInputRef = useRef(null);
+  const passwordConfirmErrorInputRef = useRef(null);
   const [showEmailError, setShowEmailError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
+  const [showPasswordConfirmError, setShowPasswordConfirmError] =
+    useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +38,10 @@ export const SignUpForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+        }),
       });
 
       if (!response.ok) {
@@ -74,10 +84,24 @@ export const SignUpForm = () => {
             showPasswordError={showPasswordError}
             setShowPasswordError={setShowPasswordError}
           />
+          <SignPasswordConfirmInput
+            values={values}
+            setValues={setValues}
+            passwordConfirmErrorMessageRef={passwordConfirmErrorMessageRef}
+            passwordConfirmErrorInputRef={passwordConfirmErrorInputRef}
+            showPasswordConfirmError={showPasswordConfirmError}
+            setShowPasswordConfirmError={setShowPasswordConfirmError}
+          />
         </div>
-        <button type="submit" className={cx("cta")}>
-          로그인
-        </button>
+        {path === "/signin" ? (
+          <button type="submit" className={cx("cta")}>
+            로그인
+          </button>
+        ) : (
+          <button type="submit" className={cx("cta")}>
+            회원가입
+          </button>
+        )}
       </form>
       <SnsSingin />
     </div>
