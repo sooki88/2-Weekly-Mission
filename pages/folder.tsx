@@ -83,9 +83,6 @@ export default function Folder({
   );
 }
 
-// 한 페이지 안에서 여러 데이터를 가져와야할 경우
-// getServerSideProps안에 어떻게 나눠서 받아올 수 있을까요?
-
 export async function getServerSideProps(context) {
   const q = context.query["q"];
 
