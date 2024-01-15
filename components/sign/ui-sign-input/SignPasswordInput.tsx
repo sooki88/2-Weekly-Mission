@@ -1,33 +1,32 @@
 import styles from "./SignInput.module.scss";
 import classNames from "classnames/bind";
-import { SignEmailInputProps } from "./constant";
+import { SignPasswordInputProps } from "./constant";
 import Image from "next/image";
-import { useRef, useState } from "react";
 
 const cx = classNames.bind(styles);
 
 export const SignPasswordInput = ({
   values,
   setValues,
-}: SignEmailInputProps) => {
-  const errorMessageRef = useRef(null);
-  const errorInputRef = useRef(null);
-  const [showError, setShowError] = useState(false);
-
+  passwordErrorMessageRef,
+  passwordErrorInputRef,
+  showPasswordError,
+  setShowPasswordError,
+}: SignPasswordInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, password: e.target.value });
   };
 
   const handleBlur = () => {
-    setShowError(true);
+    setShowPasswordError(true);
 
     if (values.password === "") {
-      errorMessageRef.current.textContent = "비밀번호를 입력해주세요.";
+      passwordErrorMessageRef.current.textContent = "비밀번호를 입력해주세요.";
       return;
     }
 
     if (values.password) {
-      return setShowError(false);
+      return setShowPasswordError(false);
     }
   };
 
@@ -39,16 +38,18 @@ export const SignPasswordInput = ({
       <input
         id="password"
         type="password"
-        className={cx("sign-input", { "sign-input-error": showError })}
+        className={cx("sign-input", { "sign-input-error": showPasswordError })}
         placeholder="비밀번호를 입력해 주세요."
-        ref={errorInputRef}
+        ref={passwordErrorInputRef}
         onChange={handleChange}
         onBlur={handleBlur}
       />
       <p
         id="email-error-massage"
-        className={cx("error-message", { "error-message-on": showError })}
-        ref={errorMessageRef}
+        className={cx("error-message", {
+          "error-message-on": showPasswordError,
+        })}
+        ref={passwordErrorMessageRef}
       ></p>
       <button id="password-toggle" type="button" className={cx("eye-button")}>
         <Image fill src="/images/eye-off.svg" alt="눈 아이콘 이미지" />
