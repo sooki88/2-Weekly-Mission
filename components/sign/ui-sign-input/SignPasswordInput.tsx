@@ -2,6 +2,7 @@ import styles from "./SignInput.module.scss";
 import classNames from "classnames/bind";
 import { SignPasswordInputProps } from "./constant";
 import Image from "next/image";
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -13,6 +14,8 @@ export const SignPasswordInput = ({
   showPasswordError,
   setShowPasswordError,
 }: SignPasswordInputProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, password: e.target.value });
   };
@@ -30,6 +33,10 @@ export const SignPasswordInput = ({
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <div className={cx("sign-input-box", "sign-password")}>
       <label htmlFor="password" className={cx("sign-input-label")}>
@@ -37,7 +44,7 @@ export const SignPasswordInput = ({
       </label>
       <input
         id="password"
-        type="password"
+        type={showPassword ? "text" : "password"}
         className={cx("sign-input", { "sign-input-error": showPasswordError })}
         placeholder="비밀번호를 입력해 주세요."
         ref={passwordErrorInputRef}
@@ -51,8 +58,17 @@ export const SignPasswordInput = ({
         })}
         ref={passwordErrorMessageRef}
       ></p>
-      <button id="password-toggle" type="button" className={cx("eye-button")}>
-        <Image fill src="/images/eye-off.svg" alt="눈 아이콘 이미지" />
+      <button
+        id="password-toggle"
+        type="button"
+        className={cx("eye-button")}
+        onClick={togglePasswordVisibility}
+      >
+        <Image
+          fill
+          src={showPassword ? "/images/eye-on.svg" : "/images/eye-off.svg"}
+          alt="눈 아이콘 이미지"
+        />
       </button>
     </div>
   );
