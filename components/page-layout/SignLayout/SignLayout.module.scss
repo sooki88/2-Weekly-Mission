@@ -1,7 +1,7 @@
 @import "../../../styles/globals.scss";
 
 .container {
-  background-color: var(--background);
+  background-color: $color-light-blue;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -8,8 +8,8 @@ const cx = classNames.bind(styles);
 export const SignHeader = () => {
   return (
     <div className={cx("container")}>
-      <Link href="/">
-        <div className={cx("logoImg")}>
+      <Link href="/" className={cx("logo-link")}>
+        <div className={cx("header-logo")}>
           <Image fill src="/images/linkbrary.svg" alt="로고 이미지" />
         </div>
       </Link>
