@@ -1,0 +1,22 @@
+name: chapter7 build
+run-name: ${{github. actor }} has been added new commit.
+
+on:
+  push:
+    branches-ignore:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: "install dependencies"
+        working-directory: ./chapter7/my-app
+        run: npm ci
+      - name: "build"
+        working-directory: ./chapter7/my-app
+        run: npm run build
