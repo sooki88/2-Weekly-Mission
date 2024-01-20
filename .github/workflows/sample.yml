@@ -1,3 +1,5 @@
+// 스터디 샘플
+
 name: chapter7 build
 run-name: ${{github. actor }} has been added new commit.
 
