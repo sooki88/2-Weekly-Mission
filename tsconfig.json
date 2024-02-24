@@ -22,7 +22,8 @@
     "**/*.ts",
     "**/*.tsx",
     "components/util/instance.ts",
-    "@types/custom.d.ts"
+    "@types/custom.d.ts",
+    "pages/api/apits"
   ],
   "exclude": ["node_modules"]
 }

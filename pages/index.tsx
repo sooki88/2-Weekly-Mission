@@ -4,8 +4,6 @@ export default function Home() {
   return (
     <>
       <Link href="/folder">폴더 페이지</Link>
-      <br />
-      {/* <Link href="/shared">공유페이지</Link> */}
     </>
   );
 }

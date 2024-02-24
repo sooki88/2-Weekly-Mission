@@ -6,7 +6,11 @@ import { FolderLayout } from "@/components/page-layout/FolderLayout/FolderLayout
 import { LinkForm } from "@/components/ui-link-form/LinkForm";
 import { instance } from "@/components/util/instance";
 import { mapDataFormat } from "@/components/util/mapDataFormat";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import { ChangeEvent, MouseEventHandler, useState } from "react";
+import { getUser } from "./api/user";
+import { getFolders } from "./api/folder";
+import { getLinksAll, getLinksById } from "./api/links";
 
 interface UserDataProps {
   id: number;
@@ -40,17 +44,26 @@ interface FolderProps {
   linksRawData: LinksRawData[];
 }
 
-export default function Folder({
-  userData,
-  foldersData,
-  linksRawData,
-}: FolderProps) {
+export default function Folder() {
+  const { data: userData } = useQuery({ queryKey: ["user"], queryFn: getUser });
+  const { data: foldersData } = useQuery({
+    queryKey: ["folders"],
+    queryFn: getFolders,
+  });
+  const { data: initialLinks } = useQuery({
+    queryKey: ["links"],
+    queryFn: getLinksAll,
+  });
+
+  const [selectedFolderId, setSelectedFolderId] = useState();
+  const [linksData, setLinksData] = useState(initialLinks?.data);
   const [searchValue, setSearchValue] = useState("");
-  const [folders, setFolders] = useState(foldersData);
-  const [selectedFolderId, setSelectedFolderId] = useState<number | "all">(
-    "all"
-  );
-  const linksData = linksRawData.map((link: any) => mapDataFormat(link)) ?? [];
+
+  // const [folders, setFolders] = useState(foldersData);
+  // const [selectedFolderId, setSelectedFolderId] = useState<number | "all">(
+  //   "all"
+  //);
+  const links = linksData.map((link: any) => mapDataFormat(link)) ?? [];
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -62,7 +75,8 @@ export default function Folder({
   return (
     <Layout isSticky={false} userdata={userData}>
       <FolderLayout
-        linkForm={<LinkForm folders={folders} />}
+        // linkForm={<LinkForm folders={foldersData} />}
+        linkForm={<LinkForm />}
         searchBar={
           <SearchBar
             value={searchValue}
@@ -70,51 +84,40 @@ export default function Folder({
             onCloseClick={handleCloseClick}
           />
         }
-        folderToolBar={
-          <FolderToolBar
-            folders={folders}
-            selectedFolderId={selectedFolderId}
-            setSelectedFolderId={setSelectedFolderId}
-          />
-        }
-        cardList={<CardList linksData={linksData} />}
+        // folderToolBar={
+        // <FolderToolBar
+        //   folders={foldersData}
+        //   selectedFolderId={selectedFolderId}
+        //   setSelectedFolderId={setSelectedFolderId}
+        // />
+        // }
+        cardList={<CardList linksData={links} />}
       />
     </Layout>
   );
 }
 
-export async function getServerSideProps(context) {
-  const q = context.query["q"];
+export async function getServerSideProps() {
+  const queryClient = new QueryClient();
 
-  let userData; // 유저 데이터
-  let foldersData; // 폴더들 데이터
-  let linksRawData; // 링크들 데이터
+  await queryClient.prefetchQuery({
+    queryKey: ["user"],
+    queryFn: getUser,
+  });
 
-  try {
-    const userres = await instance.get("/sample/user");
-    userData = userres.data;
+  await queryClient.prefetchQuery({
+    queryKey: ["folders"],
+    queryFn: getFolders,
+  });
 
-    const foldersres = await instance.get("/users/1/folders");
-    foldersData = foldersres.data.data;
-
-    if (q === "all") {
-      const linksres = await instance.get("/users/1/links");
-      linksRawData = linksres?.data.data ?? [];
-    } else {
-      const linksres = await instance.get(`/users/1/links?folderId=${q}`);
-      linksRawData = linksres?.data.data ?? [];
-    }
-  } catch (error) {
-    throw new Error(
-      "user 또는 folders 또는 links 데이터를 받아오는 데 실패했습니다."
-    );
-  }
+  await queryClient.prefetchQuery({
+    queryKey: ["links"],
+    queryFn: getLinksAll,
+  });
 
   return {
     props: {
-      userData,
-      foldersData,
-      linksRawData,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }

@@ -20,7 +20,8 @@ interface LinkFormProps {
   folders: FoldersData[];
 }
 
-export const LinkForm = ({ folders }: LinkFormProps) => {
+// export const LinkForm = ({ folders }: LinkFormProps) => {
+export const LinkForm = () => {
   const [linkUrl, setLinkUrl] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
