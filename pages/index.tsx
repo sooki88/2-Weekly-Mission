@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <Link href="/folder">폴더 페이지</Link>
+      <Link href="/signup">회원가입 페이지</Link>
     </>
   );
 }

@@ -1,7 +1,10 @@
-import { SignLayout } from "@/components/page-layout/SignLayout/SignLayout";
-import { SignHeader } from "@/components/sign/ui-sign-header/SignHeader";
-import { SignUpForm } from "@/components/sign/ui-sign-up-form/SignUpForm";
+import AuthForm from "@/components/Auth/Form";
 
 export default function Signup() {
-  return <SignLayout header={<SignHeader />} signForm={<SignUpForm />} />;
+  return (
+    <>
+      <h1>회원가입</h1>
+      <AuthForm />
+    </>
+  );
 }

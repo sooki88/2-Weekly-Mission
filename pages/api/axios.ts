@@ -1,39 +1,27 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 export type HttpMethod = "get" | "post" | "put" | "delete";
-export interface ServiceResponse<T> {
-  data?: T | null;
-  errorMessage: string | null;
-}
 
-const BASE_URL = "https://bootcamp-api.codeit.kr/api";
+const BASE_URL = "https://bootcamp-api.codeit.kr/api/linkbrary/v1";
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
 });
 
-export async function service<T, U>(
-  method: HttpMethod,
-  url: string,
-  data?: U,
-  config?: AxiosRequestConfig
-): Promise<ServiceResponse<T>> {
+export async function apiCall<T>(
+  method: "post" | "put" | "delete" | "patch",
+  endPoint: string,
+  data?: any
+): Promise<T> {
   try {
-    const request: AxiosRequestConfig = {
-      url,
+    const response: AxiosResponse<T> = await axiosInstance({
       method,
+      url: endPoint,
       data,
-      ...config,
-    };
-    const response: AxiosResponse<T> = await axiosInstance(request);
-    return { data: response.data, errorMessage: null };
+    });
+    return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const errorMessage = error.response?.data?.message;
-      return { data: null, errorMessage };
-    } else {
-      console.error(`${method} Error : `, error);
-      throw error;
-    }
+    const axiosError = error as AxiosError;
+    throw new Error(`HTTP error! status: ${axiosError.response?.status}`);
   }
 }
