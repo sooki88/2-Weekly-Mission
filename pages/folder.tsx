@@ -12,6 +12,14 @@
 // import { getFolders } from "./api/folder";
 // import { getLinksAll, getLinksById } from "./api/links";
 
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+  useQuery,
+} from "@tanstack/react-query";
+import { getFolders } from "./api/folder";
+
 // interface UserDataProps {
 //   id: number;
 //   name: string;
@@ -122,8 +130,37 @@
 //   };
 // }
 
-function Folder() {
-  return;
+//
+
+// 재시도
+
+export async function getServerSideProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["folders"],
+    queryFn: getFolders,
+  });
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 }
 
-export default Folder;
+function Folder() {
+  const { data } = useQuery({ queryKey: ["folders"], queryFn: getFolders });
+
+  console.log(data);
+
+  return <div>{data}</div>;
+}
+
+export default function FolderRoute({ dehydratedState }) {
+  return (
+    <HydrationBoundary state={dehydratedState}>
+      <Folder />
+    </HydrationBoundary>
+  );
+}
