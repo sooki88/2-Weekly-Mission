@@ -152,9 +152,7 @@ export async function getServerSideProps() {
 function Folder() {
   const { data } = useQuery({ queryKey: ["folders"], queryFn: getFolders });
 
-  console.log(data);
-
-  return <div>{data}</div>;
+  return <></>;
 }
 
 export default function FolderRoute({ dehydratedState }) {
